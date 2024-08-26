@@ -1,4 +1,4 @@
-# Projeto Sistema de Gestão de Estoque (Atividade 3 e Desafio Semana 04) -  SPRINGBOOT_AWS_AGO24
+# Projeto Sistema de Gestão de Estacionamento (Atividade 3 e Desafio Semana 04) -  SPRINGBOOT_AWS_AGO24
 
 Este projeto tem como objetivo atender as exigências da ativiadade da semana 03 e do desafio da semana 04 do programa de bolsas da Compass UOL.
 
@@ -17,12 +17,12 @@ Siga os passos abaixo para configurar o projeto em seu ambiente de testes:
 
    ```bash
    git clone https://github.com/DevMatheusMarques/sistema-gestao-estacionamento.git
-   cd nome-do-repositorio
+   cd nome-do-diretorio
    ```
    
 2. **Configuração do projeto**:
 
-   Observe a estrutura de pastas do projeto e e encontre a pasta resources. Ela vai estar no seguinte caminho:
+   Observe a estrutura de pastas do projeto e encontre a pasta resources. Ela vai estar no seguinte caminho:
     ```bash
    cd sistema-gestao-estacionamento/src/main
    ```
