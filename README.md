@@ -2,6 +2,11 @@
 
 Este projeto tem como objetivo atender as exigências da ativiadade da semana 03 e do desafio da semana 04 do programa de bolsas da Compass UOL.
 
+### Observação
+A estrutura do projeto aqui no repositório do GitHub esta com o projeto dentro de uma subpasta devido a atividade 3 que solicitava que fosse criada uma branch para a atividade 3 antes de criar o projeto.
+
+![img_2.png](img_2.png)
+
 ## Requisitos
 Certifique-se de ter as seguintes ferramentas instaladas:
 
@@ -64,7 +69,7 @@ Siga os passos abaixo para configurar o projeto em seu ambiente de testes:
    cd sistema-gestao-estacionamento/src/main/java/org.compass/application
    ```
    Selecione a classe main e execute a opção de Run 'Main.java' em sua IDE.
-    
+
 
 ### Contato
 Em caso de dúvidas ou problemas, entre em contato com:
