@@ -2,8 +2,11 @@ package org.compass.application;
 
 import org.compass.db.DB;
 import org.compass.db.DbException;
+import org.compass.model.entities.Cobranca;
 
 import java.sql.*;
+
+import static org.compass.db.DB.getConnection;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,14 +15,14 @@ public class Main {
         ResultSet resultSet = null;
 
         try {
-            connection = DB.getConnection();
+            connection = getConnection();
 
             statement = connection.createStatement();
 
-            resultSet = statement.executeQuery("SELECT * FROM carros;");
+            resultSet = statement.executeQuery("SELECT * FROM carro_passeios;");
 
             while (resultSet.next()) {
-                System.out.println(resultSet.getInt("id") + ", " + resultSet.getString("modelo"));
+                System.out.println(resultSet.getInt("id") + ", " + resultSet.getString("categoria"));
             }
 
         } catch (SQLException e) {
@@ -29,6 +32,12 @@ public class Main {
             DB.closeStatement(statement);
             DB.closeConnection();
         }
+
+        Cobranca cobranca = new Cobranca();
+
+        System.out.println("Valor mensalidade: " + cobranca.getValorMensalidade());
+
+        System.out.println();
 
     }
 }
