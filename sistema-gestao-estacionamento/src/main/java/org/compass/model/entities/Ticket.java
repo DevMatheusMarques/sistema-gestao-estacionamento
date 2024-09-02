@@ -29,7 +29,7 @@ public class Ticket {
         dao.registraTicket(ticket);
     }
 
-    public void registrarSaidaVeiculo(Ticket ticket, int numeroCancelaSaida) throws SQLException {
+    public void registrarSaidaVeiculo(Ticket ticket, int numeroCancelaSaida) {
         TicketDaoJDBC ticketDaoJDBC = this.ticketDaoJDBC;
         ticketDaoJDBC.registrarSaida(ticket, numeroCancelaSaida);
     }

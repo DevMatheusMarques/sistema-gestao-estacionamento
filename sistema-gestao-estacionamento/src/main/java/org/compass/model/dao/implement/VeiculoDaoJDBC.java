@@ -49,7 +49,7 @@ public class VeiculoDaoJDBC implements VeiculoDao {
         }
     }
 
-    public void atualizaVeiculo(String placa, int vagaInicial) throws SQLException {
+    public void atualizaVeiculo(String placa, int vagaInicial) {
         String sql = "UPDATE veiculos SET vaga_inicial = ? WHERE placa = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, vagaInicial);
