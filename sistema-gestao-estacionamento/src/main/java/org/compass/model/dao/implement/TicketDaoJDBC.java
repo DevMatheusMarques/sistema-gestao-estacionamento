@@ -5,6 +5,7 @@ import org.compass.model.dao.TicketDao;
 import org.compass.model.entities.*;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,8 +42,8 @@ public class TicketDaoJDBC implements TicketDao {
     }
 
     @Override
-    public void registrarSaida(Ticket ticket, int numeroCancelaSaida) throws SQLException {
-        String sql = "UPDATE tickets SET datetime_saida = ?, preco_final = ?, cancela_saida = ? WHERE id = ?";
+    public void registrarSaida(Ticket ticket, int numeroCancelaSaida) {
+        String sql = "UPDATE tickets SET datetime_saida = ?, preco_final = ?, cancela_saida = ?, vaga_inicial = ? WHERE id = ?";
 
         Cobranca cobranca = new Cobranca(ticket);
         float valorFinal = cobranca.calcularValor();
@@ -51,8 +52,24 @@ public class TicketDaoJDBC implements TicketDao {
             ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
             ps.setFloat(2, valorFinal);
             ps.setInt(3, numeroCancelaSaida);
-            ps.setInt(4, ticket.getId());
+            ps.setInt(4, -1);
+            ps.setInt(5, ticket.getId());
+
             ps.executeUpdate();
+
+            DateTimeFormatter formatarData = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
+            System.out.println("Ticket:");
+            System.out.println("ID: " + ticket.getId());
+            System.out.println("Placa: " + ticket.getPlaca());
+            System.out.println("Tipo Veiculo: " + ticket.getTipoVeiculo());
+            System.out.println("Data e Hora de Entrada: " + ticket.getDataHoraEntrada().format(formatarData));
+            System.out.println("Data e Hora de Saida: " + LocalDateTime.now().format(formatarData));
+            System.out.println("Cancela de Entrada: " + ticket.getCancelaEntrada());
+            System.out.println("Cancela de Saida: " + numeroCancelaSaida);
+            System.out.println("Quantidade de vagas ocupadas: " + ticket.getOcupacaoVagas());
+            System.out.println(String.format("Valor final Pago: R$ %.2f", valorFinal));
+            System.out.println();
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao atualizar valor do ticket.", e);
         }
