@@ -66,10 +66,11 @@ public class Menu {
         System.out.println();
 
         Veiculo veiculo = this.veiculo;
-        Boolean veiculoEncontrado = veiculo.getPlacaVeiculo(placa);// renomear função
+        Map<String, Object> procurarVeiculo = veiculo.getPlacaVeiculo(placa);
+        boolean veiculoEncontrado = (boolean) procurarVeiculo.get("sucesso");
 
         if (veiculoEncontrado) {
-            String tipoVeiculo = veiculo.getTipoByPlaca(placa); // remover consulta redundante
+            String tipoVeiculo = veiculo.getTipoByPlaca(placa);
             System.out.println("Tipo do veículo: " + tipoVeiculo);
             System.out.println();
 
@@ -81,8 +82,22 @@ public class Menu {
 
             if (podeEntrar) {
                 if (Objects.equals(tipoVeiculo, "caminhao")) {
-                    Estacionamento estacionamento = this.estacionamento;//resolver classe sobrescrita
-                    estacionamento.entradaVeiculo(tipoVeiculo, false);
+                    Estacionamento estacionamento = this.estacionamento;
+                    Map<String, Object> resultado = estacionamento.entradaVeiculo("caminhao", false);
+
+                    if ((boolean) resultado.get("sucesso")) {
+                        // Pega a vaga inicial do mapa de resultados
+                        int vagaInicial = (int) resultado.get("vagaInicial");
+
+                        // Usa a vagaInicial conforme necessário
+                        System.out.println("Vaga inicial: " + vagaInicial);
+
+                        // Exemplo de uso da vagaInicial para atualizar um veículo
+                        veiculo.atualizaVeiculo(placa, vagaInicial);
+                    } else {
+                        System.out.println("Não foi possível estacionar o veículo.");
+                    }
+
                     System.out.println();
                     System.out.println("Vagas disponíveis (Avulso): \n" + estacionamento.getVagasDisponiveisTabela(false));
                     System.out.println();
@@ -90,13 +105,26 @@ public class Menu {
                 }
 
                 Estacionamento estacionamento = this.estacionamento;
-                estacionamento.entradaVeiculo(tipoVeiculo, true);
+                Map<String, Object> resultado = estacionamento.entradaVeiculo(tipoVeiculo, true);
+
+                if ((boolean) resultado.get("sucesso")) {
+                    // Pega a vaga inicial do mapa de resultados
+                    int vagaInicial = (int) resultado.get("vagaInicial");
+
+                    // Usa a vagaInicial conforme necessário
+                    System.out.println("Vaga inicial: " + vagaInicial);
+
+                    // Exemplo de uso da vagaInicial para atualizar um veículo
+                    veiculo.atualizaVeiculo(placa, vagaInicial);
+                } else {
+                    System.out.println("Não foi possível estacionar o veículo.");
+                }
+
                 System.out.println();
                 System.out.println("Vagas disponíveis (Mensalista): \n" + estacionamento.getVagasDisponiveisTabela(true));
                 System.out.println();
                 return;
             }
-
             return;
         }
 
@@ -381,18 +409,6 @@ public class Menu {
 
                 if (podeSair) {
                     ticketData.registrarSaidaVeiculo(ticketData, numeroCancela);
-                    System.out.println();
-                    System.out.println("Ticket:");
-                    System.out.println("ID: " + ticketData.getId());
-                    System.out.println("Placa: " + ticketData.getPlaca());
-                    System.out.println("TipoVeiculo: " + ticketData.getTipoVeiculo());
-                    System.out.println("DataHora: " + ticketData.getDataHoraEntrada());
-                    System.out.println("DataHoraSaida: " + ticketData.getDataHoraSaida());
-                    System.out.println("CancelaEntrada: " + ticketData.getCancelaEntrada());
-                    System.out.println("CancelaSaida: " + ticketData.getCancelaSaida());
-                    System.out.println("OcupacaoVagas: " + ticketData.getOcupacaoVagas());
-                    System.out.println("PrecoFinal: " + ticketData.getPrecoFinal());
-                    System.out.println();
 
                     Estacionamento estacionamento = this.estacionamento;
                     estacionamento.saidaVeiculo(ticketData.getVagaInicial(), tipoVeiculo, false);
@@ -410,7 +426,10 @@ public class Menu {
         System.out.println();
 
         Veiculo veiculo = this.veiculo;
-        Boolean veiculoEncontrado = veiculo.getPlacaVeiculo(placa);
+        Map<String, Object> procurarVeiculo = veiculo.getPlacaVeiculo(placa);
+        boolean veiculoEncontrado = (boolean) procurarVeiculo.get("sucesso");
+
+        int veiculoId = veiculo.getIdVeiculo(placa);
 
         if (veiculoEncontrado) {
             String tipoVeiculo = veiculo.getTipoByPlaca(placa);
@@ -427,6 +446,7 @@ public class Menu {
 
             if (podeSair) {
                 if (Objects.equals(tipoVeiculo, "caminhao")) {
+                    veiculo.registrarSaidaVeiculo((Integer) procurarVeiculo.get("id"));
                     Estacionamento estacionamento = this.estacionamento;
                     estacionamento.saidaVeiculo(vagaInicial ,tipoVeiculo, false);
                     System.out.println();
@@ -434,6 +454,8 @@ public class Menu {
                     System.out.println();
                     return;
                 }
+
+                veiculo.registrarSaidaVeiculo(veiculoId);
 
                 Estacionamento estacionamento = this.estacionamento;
                 estacionamento.saidaVeiculo(vagaInicial ,tipoVeiculo, true);
