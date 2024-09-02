@@ -43,23 +43,16 @@ Siga os passos abaixo para configurar o projeto em seu ambiente de testes:
 
 
 3. **Criação do Banco de Dados do Projeto**
-
-   Abra seu MySQL Workbench, acesse sua conexão e crie um banco de dados com o seguinte nome:
-   ```bash
-   SistemaGestaoEstacionamento
-   ```
-   Dentro deste banco crie uma tabela com o seguinte nome:
-   ```bash
-   carros
-   ```
-   Esta tabela deve conter as seguintes colunas:
-
-   - id (Sendo chave primária, não podendo ser inserido valores nulos e contendo auto incremento)
-   - modelo (Não podendo ser inserido valores nulos)
    
-   Conforme a imagem a seguir:
+   Junto ao projeto há um arquivo .sql, você deve pegar este arquivo e abri-lo com seu MySQL Workbench.
 
-    ![img_1.png](img_1.png)
+   Nome completo do arquivo:
+
+   ```bash
+   sistema-gestao-estacionamento-tabelas.sql
+   ```
+
+   Ao abrir basta executar o código e o banco de dados será criado e populado.
 
 
 4. **Executar o projeto (Classe Main)**
@@ -69,6 +62,12 @@ Siga os passos abaixo para configurar o projeto em seu ambiente de testes:
    cd sistema-gestao-estacionamento/src/main/java/org.compass/application
    ```
    Selecione a classe main e execute a opção de Run 'Main.java' em sua IDE.
+
+
+5. **Requisitos Adiados**
+
+   - Refatorar a classe Menu para deixar com um código mais limpo e com separação de responsabilidades.
+   - Traduzir todo o código do projeto para inglês.
 
 
 ### Contato
