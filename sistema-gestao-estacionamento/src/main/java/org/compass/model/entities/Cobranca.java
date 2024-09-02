@@ -1,37 +1,24 @@
 package org.compass.model.entities;
 
+
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Cobranca {
-    protected double valorMinuto = 0.10;
-    protected double valorMinimo = 5.00;
-    protected double valorMensalidade = 250.00;
+    private static final double VALOR_MINUTO = 0.10; //centavos
+    private static final double VALOR_MINIMO = 5;
+    private Ticket ticket;
 
-    protected Ticket ticket;
-
-    public Cobranca() {
+    public Cobranca(Ticket ticket) {
+        this.ticket = ticket;
     }
 
-    public Cobranca(double valorMinuto, double valorMinimo, double valorMensalidade) {
-        this.valorMinuto = valorMinuto;
-        this.valorMinimo = valorMinimo;
-        this.valorMensalidade = valorMensalidade;
-    }
-
-    public double getValorMinuto() {
-        return valorMinuto;
-    }
-
-    public double getValorMinimo() {
-        return valorMinimo;
-    }
-
-    public double getValorMensalidade() {
-        return valorMensalidade;
-    }
-
-    public double calcularValor() {
-        long minutosEstacionado = Duration.between(ticket.getDataHoraEntrada(), ticket.getDataHoraSaida()).toMinutes();
-        return Math.max(getValorMinuto(), minutosEstacionado * getValorMinimo() * ticket.getVagasOcupadas());
+    public float calcularValor() {
+        long minutosEstacionado = Duration.between(this.ticket.getDataHoraEntrada(), LocalDateTime.now()).toMinutes();
+        double valorPorTempo = minutosEstacionado * VALOR_MINUTO;
+        double valor = valorPorTempo + VALOR_MINIMO;
+        double valorFinal = Objects.equals(this.ticket.getTipoVeiculo(), "carro") ? valor * 2 : valor;
+        return (float) valorFinal;
     }
 }
