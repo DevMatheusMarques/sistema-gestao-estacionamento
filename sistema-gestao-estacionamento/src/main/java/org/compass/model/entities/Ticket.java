@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 public class Ticket {
-    // Propriedades
     private int id;
     private LocalDateTime dataHoraEntrada;
     private LocalDateTime dataHoraSaida;
@@ -20,7 +19,6 @@ public class Ticket {
     private int vagaInicial;
     private TicketDaoJDBC ticketDaoJDBC;
 
-    // Construtores
     public Ticket() {
         this.ticketDaoJDBC = new TicketDaoJDBC();
     }
@@ -50,8 +48,16 @@ public class Ticket {
         return dataHoraEntrada;
     }
 
+    public LocalDateTime getDataHoraSaida() {
+        return dataHoraSaida;
+    }
+
     public int getCancelaEntrada() {
         return cancelaEntrada;
+    }
+
+    public int getCancelaSaida() {
+        return cancelaSaida;
     }
 
     public int getOcupacaoVagas() {
@@ -68,6 +74,10 @@ public class Ticket {
 
     public int getVagaInicial() {
         return vagaInicial;
+    }
+
+    public double getPrecoFinal() {
+        return precoFinal;
     }
 
     // Setters
