@@ -5,6 +5,7 @@ import org.compass.model.dao.VeiculoDao;
 import org.compass.model.entities.*;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +46,28 @@ public class VeiculoDaoJDBC implements VeiculoDao {
         } catch (SQLException e) {
             // Lança uma exceção em caso de erro na inserção
             throw new RuntimeException(e);
+        }
+    }
+
+    public void atualizaVeiculo(String placa, int vagaInicial) throws SQLException {
+        String sql = "UPDATE veiculos SET vaga_inicial = ? WHERE placa = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, vagaInicial);
+            ps.setString(2, placa);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar veículo.", e);
+        }
+    }
+
+    public void registrarSaida(int veiculId) {
+        String sql = "UPDATE veiculos SET vaga_inicial = -1 WHERE id = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, veiculId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar veículo.", e);
         }
     }
 
@@ -104,6 +127,7 @@ public class VeiculoDaoJDBC implements VeiculoDao {
             Veiculo veiculo = new Veiculo();
             veiculo.setId(resultSet.getInt("id"));
             resultado.put("veiculo", veiculo);
+            resultado.put("id", veiculo.getId());
             resultado.put("sucesso", true);
             resultado.put("mensagem", "Veículo encontrado.");
             return resultado;
