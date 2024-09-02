@@ -1,12 +1,10 @@
 package org.compass.model.entities;
-
-import org.compass.model.dao.InterfaceVeiculo;
 import org.compass.model.dao.implement.VeiculoDaoJDBC;
 
 import java.sql.SQLException;
 import java.util.Map;
 
-public class Veiculo implements InterfaceVeiculo {
+public class Veiculo {
     // Propriedades
     protected int id;
     protected String placa;
@@ -21,12 +19,13 @@ public class Veiculo implements InterfaceVeiculo {
         this.veiculoDaoJDBC = new VeiculoDaoJDBC();
     }
 
+    // Métodos Públicos
     public Boolean getPlacaVeiculo(String placa) throws SQLException {
         VeiculoDaoJDBC veiculoDaoJDBC = this.veiculoDaoJDBC;
         Map<String, Object> resultado = veiculoDaoJDBC.getVeiculoByPlaca(placa);
 
         if ((boolean) resultado.get("sucesso")) {
-            // Se bem-sucedido, obtenha o objeto Veiculo e a mensagem
+            // Se bem-sucedido, obtenha a mensagem
             String mensagem = (String) resultado.get("mensagem");
 
             System.out.println(mensagem);  // Exibe a mensagem
@@ -35,7 +34,7 @@ public class Veiculo implements InterfaceVeiculo {
             return true;
 
         } else {
-            // Se não encontrado, exiba a mensagem de erro
+            // Se não encontrado, exibe a mensagem de erro
             String mensagem = (String) resultado.get("mensagem");
             System.out.println(mensagem);
             System.out.println();

@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface VeiculoDao {
-//    void insertVeiculo(String placa, Tipo tipo, double mensalista, int ocupacao_vagas) throws SQLException;
-//    Map<String, Object> getVeiculoById(Integer id) throws SQLException;
-//    List<Veiculo> getAllVeiculos();
+    Boolean registraVeiculo(Veiculo veiculo);
+    int getByVagaInicial(String placa);
+    String getTipoByPlaca(String placa) throws SQLException;
+    Map<String, Object> getVeiculoByPlaca(String placa) throws SQLException;
 }
