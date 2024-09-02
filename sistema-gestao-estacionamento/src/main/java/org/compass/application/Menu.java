@@ -23,7 +23,7 @@ public class Menu {
             System.out.println("Menu de Opções:");
             System.out.println("1. Entrada");
             System.out.println("2. Saída");
-            System.out.println("3. Sair");
+            System.out.println("3. Sair do Sistema");
             System.out.println();
             System.out.print("Escolha uma opção: ");
             int opcao = scanner.nextInt();
@@ -38,6 +38,7 @@ public class Menu {
                     break;
                 case 3:
                     System.out.println("Encerrando o sistema...");
+                    scanner.close();
                     return;
                 default:
                     System.out.println("Opção inválida.");
@@ -83,7 +84,7 @@ public class Menu {
                     Estacionamento estacionamento = this.estacionamento;//resolver classe sobrescrita
                     estacionamento.entradaVeiculo(tipoVeiculo, false);
                     System.out.println();
-                    System.out.println("Vagas disponíveis (Avulso): " + estacionamento.getVagasDisponiveisTabela(false));
+                    System.out.println("Vagas disponíveis (Avulso): \n" + estacionamento.getVagasDisponiveisTabela(false));
                     System.out.println();
                     return;
                 }
@@ -91,7 +92,7 @@ public class Menu {
                 Estacionamento estacionamento = this.estacionamento;
                 estacionamento.entradaVeiculo(tipoVeiculo, true);
                 System.out.println();
-                System.out.println("Vagas disponíveis (Mensalista): " + estacionamento.getVagasDisponiveisTabela(true));
+                System.out.println("Vagas disponíveis (Mensalista): \n" + estacionamento.getVagasDisponiveisTabela(true));
                 System.out.println();
                 return;
             }
@@ -99,7 +100,7 @@ public class Menu {
             return;
         }
 
-        System.out.println("Selecione o tipo de veículo:");
+        System.out.println("Categorias disponíveis:");
         System.out.println("1. Avulso");
         System.out.println("2. Mensalista");
         System.out.println("3. Caminhão");
@@ -109,7 +110,7 @@ public class Menu {
         int opcao = scanner.nextInt();
         System.out.println();
 
-        if (opcao == 1) {//trocar para switch
+        if (opcao == 1) {
             System.out.println("Selecione uma das opções:");
             System.out.println("1. Carro");
             System.out.println("2. Moto");
@@ -120,7 +121,7 @@ public class Menu {
             System.out.println();
 
             String tipoVeiculo;
-            if (tipo == 1) { //adicionar loop while false
+            if (tipo == 1) {
                 tipoVeiculo = "carro";
             } else if (tipo == 2) {
                 tipoVeiculo = "moto";
@@ -158,11 +159,11 @@ public class Menu {
                 } else {
                     ticket.setOcupacaoVagas(1);
                 }
+                System.out.println();
                 ticket.registraTicket(ticket);
 
-
                 System.out.println();
-                System.out.println("Vagas disponíveis (Avulsos): " + estacionamento.getVagasDisponiveisTabela(false));
+                System.out.println("Vagas disponíveis (Avulsos): \n" + estacionamento.getVagasDisponiveisTabela(false));
                 System.out.println();
                 return;
             }
@@ -200,17 +201,43 @@ public class Menu {
                 System.out.println();
                 System.out.println("Valor mensalidade: R$250,00");
                 System.out.println();
-                System.out.println("Pagamento Mensalidade:");
+                System.out.println("----- Pagamento Mensalidade -----");
+                System.out.println();
+
+                System.out.println("Selecione o método de pagamento:");
+                System.out.println();
+                System.out.println("1. Cartão de Débito");
+                System.out.println("2. Cartão de Crédito");
+                System.out.println("3. PIX");
+                System.out.println();
+                System.out.print("Informe a opção desejada: ");
+                int metodoPagamento = scanner.nextInt();
+                System.out.println();
+
+                if (metodoPagamento == 1) {
+                    System.out.println("Método de pagamento selecionado: Cartão de Débito");
+                    System.out.println();
+                    System.out.println("Efetuando pagamento...");
+                } else if (metodoPagamento == 2) {
+                    System.out.println("Método de pagamento selecionado: Cartão de Crédito");
+                    System.out.println();
+                    System.out.println("Efetuando pagamento...");
+                } else if (metodoPagamento == 3) {
+                    System.out.println("Método de pagamento selecionado: PIX");
+                    System.out.println();
+                    System.out.println("Efetuando pagamento...");
+                }
+
                 System.out.println();
                 System.out.println("Consultando sistema TEF...");
                 System.out.println();
                 System.out.println("Transação autorizada");
                 System.out.println();
-                System.out.println("Pago R$250,00");
+                System.out.println("Valor pago: R$250,00");
                 System.out.println();
 
                 Estacionamento estacionamento = this.estacionamento;
-                Map<String, Object> resultado = estacionamento.entradaVeiculo(tipoVeiculo, false);
+                Map<String, Object> resultado = estacionamento.entradaVeiculo(tipoVeiculo, true);
 
                 int vagaInicial;
                 if ((boolean) resultado.get("sucesso")) {
@@ -232,12 +259,8 @@ public class Menu {
                     veiculo.setOcupacaoVagas(1);
                 }
                 novoVeiculo.CadastrarNovoVeiculo(novoVeiculo);
-
-
                 System.out.println();
-
-                System.out.println();
-                System.out.println("Vagas disponíveis (Mensalista): " + estacionamento.getVagasDisponiveisTabela(true));
+                System.out.println("Vagas disponíveis (Mensalista): \n" + estacionamento.getVagasDisponiveisTabela(true));
                 System.out.println();
                 return;
             }
@@ -271,7 +294,7 @@ public class Menu {
                 novoVeiculo.CadastrarNovoVeiculo(novoVeiculo);
 
                 System.out.println();
-                System.out.println("Vagas disponíveis (Avulsos): " + estacionamento.getVagasDisponiveisTabela(false));
+                System.out.println("Vagas disponíveis (Avulsos): \n" + estacionamento.getVagasDisponiveisTabela(false));
                 System.out.println();
                 return;
             }
@@ -314,22 +337,71 @@ public class Menu {
                 Ticket ticketData = (Ticket) resultado.get("ticket");
                 String tipoVeiculo = ticketData.getTipoVeiculo();
                 System.out.println("Veículo do tipo: " + tipoVeiculo);
+                System.out.println();
 
+                System.out.println("----- Pagamento Ticket -----");
+                System.out.println();
+
+                System.out.println("Selecione o método de pagamento:");
+                System.out.println();
+                System.out.println("1. Cartão de Débito");
+                System.out.println("2. Cartão de Crédito");
+                System.out.println("3. PIX");
+                System.out.println();
+                System.out.print("Informe a opção desejada: ");
+                int metodoPagamento = scanner.nextInt();
+                System.out.println();
+
+                if (metodoPagamento == 1) {
+                    System.out.println("Método de pagamento selecionado: Cartão de Débito");
+                    System.out.println();
+                    System.out.println("Efetuando pagamento...");
+                } else if (metodoPagamento == 2) {
+                    System.out.println("Método de pagamento selecionado: Cartão de Crédito");
+                    System.out.println();
+                    System.out.println("Efetuando pagamento...");
+                } else if (metodoPagamento == 3) {
+                    System.out.println("Método de pagamento selecionado: PIX");
+                    System.out.println();
+                    System.out.println("Efetuando pagamento...");
+                }
+
+                System.out.println();
+                System.out.println("Consultando sistema TEF...");
+                System.out.println();
+                System.out.println("Transação autorizada");
+                System.out.println();
 
                 System.out.print("Informe a cancela: ");
                 int numeroCancela = scanner.nextInt();
                 System.out.println();
+
                 boolean podeSair = Cancela.permiteSair(tipoVeiculo, numeroCancela);
                 System.out.println();
 
                 if (podeSair) {
-                    int ticketId = ticketData.getId();
-                    System.out.println(ticketId);
                     ticketData.registrarSaidaVeiculo(ticketData, numeroCancela);
+                    System.out.println();
+                    System.out.println("Ticket:");
+                    System.out.println("ID: " + ticketData.getId());
+                    System.out.println("Placa: " + ticketData.getPlaca());
+                    System.out.println("TipoVeiculo: " + ticketData.getTipoVeiculo());
+                    System.out.println("DataHora: " + ticketData.getDataHoraEntrada());
+                    System.out.println("DataHoraSaida: " + ticketData.getDataHoraSaida());
+                    System.out.println("CancelaEntrada: " + ticketData.getCancelaEntrada());
+                    System.out.println("CancelaSaida: " + ticketData.getCancelaSaida());
+                    System.out.println("OcupacaoVagas: " + ticketData.getOcupacaoVagas());
+                    System.out.println("PrecoFinal: " + ticketData.getPrecoFinal());
+                    System.out.println();
+
+                    Estacionamento estacionamento = this.estacionamento;
+                    estacionamento.saidaVeiculo(ticketData.getVagaInicial(), tipoVeiculo, false);
+                    System.out.println();
+                    System.out.println("Vagas disponíveis (Avulso): \n" + estacionamento.getVagasDisponiveisTabela(false));
+                    System.out.println();
                     return;
                 }
             }
-            System.out.println("não entrou");
             return;
         }
 
@@ -353,41 +425,25 @@ public class Menu {
 
             int vagaInicial = veiculo.getByVagaInicial(placa);
 
-
             if (podeSair) {
                 if (Objects.equals(tipoVeiculo, "caminhao")) {
                     Estacionamento estacionamento = this.estacionamento;
                     estacionamento.saidaVeiculo(vagaInicial ,tipoVeiculo, false);
                     System.out.println();
-                    System.out.println("Vagas disponíveis (Avulso): " + estacionamento.getVagasDisponiveisTabela(false));
+                    System.out.println("Vagas disponíveis (Avulso): \n" + estacionamento.getVagasDisponiveisTabela(false));
                     System.out.println();
                     return;
                 }
 
                 Estacionamento estacionamento = this.estacionamento;
-//                estacionamento.saidaVeiculo(tipoVeiculo, true);
+                estacionamento.saidaVeiculo(vagaInicial ,tipoVeiculo, true);
                 System.out.println();
-                System.out.println("Vagas disponíveis (Mensalista): " + estacionamento.getVagasDisponiveisTabela(true));
+                System.out.println("Vagas disponíveis (Mensalista): \n" + estacionamento.getVagasDisponiveisTabela(true));
                 System.out.println();
                 return;
             }
             return;
         }
 
-
-//        System.out.println("Realizando cálculo de saída...");
-////        double valor = calcularSaida();
-//
-////        System.out.println("Valor a pagar: R$ " + valor);
-//        System.out.print("Deseja realizar o pagamento? (S/N): ");
-//        String pagamento = scanner.next();
-//
-//        if (pagamento.equalsIgnoreCase("S")) {
-////            realizarPagamento(valor);
-////            desocuparVaga(placa);
-////            cancelaLiberada();
-//        } else {
-//            System.out.println("Pagamento não realizado. Direcione-se para a cancela permitida.");
-//        }
     }
 }
