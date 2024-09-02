@@ -1,13 +1,13 @@
 package org.compass.model.dao;
 
 import org.compass.model.entities.Ticket;
-
-import java.util.List;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Map;
 
 public interface TicketDao {
-    void insertTicket(Ticket ticket);
-    void updateTicket(Ticket ticket);
-    void deleteTicket(Ticket ticket);
-    Ticket getTicketById(int id);
-    List<Ticket> getTicketsAll();
+    Boolean registraTicket(Ticket ticket);
+    void registrarSaida(Ticket ticket, int numeroCancelaSaida) throws SQLException;
+    Ticket constroiTicket(ResultSet resultSet) throws SQLException;
+    Map<String, Object> getTicketByPlaca(String placa) throws SQLException;
 }
